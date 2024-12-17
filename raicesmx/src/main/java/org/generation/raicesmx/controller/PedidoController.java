@@ -2,6 +2,7 @@ package org.generation.raicesmx.controller;
 
 import java.util.List;
 
+import org.generation.raicesmx.exception.PedidoNotFoundException;
 import org.generation.raicesmx.model.PedidoEntity;
 import org.generation.raicesmx.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,19 +39,28 @@ public class PedidoController {
 	}
 	
 	@PostMapping("/new-pedido")
-	public PedidoEntity createPedido(@RequestBody PedidoEntity newPedido){
-		return this.pedidoService.createPedido(newPedido);
+	public ResponseEntity<PedidoEntity> createPedido(@RequestBody PedidoEntity newPedido){
+		if(this.pedidoService.getPedido(newPedido.getId_pedido()) != null) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(this.pedidoService.createPedido(newPedido));
 	}
 	
 	@DeleteMapping("/delete/{id_pedido}")
     public void deletePedido(@PathVariable("id_pedido") Long id_pedido){
-        pedidoService.deletePedido(id_pedido);
+        this.pedidoService.deletePedido(id_pedido);
     }
 	
 	@PutMapping("/update/{id}")
-    public ResponseEntity<PedidoEntity> updatePedido(@RequestBody PedidoEntity pedidoEntity, @PathVariable("id") Long id) {
+    public ResponseEntity<?> updatePedido(@RequestBody PedidoEntity pedidoEntity, @PathVariable("id") Long id) {
 
-        PedidoEntity pedido = pedidoService.getPedido(id);
+		try {
+			return ResponseEntity.ok(this.pedidoService.updatePedido(pedidoEntity, id));
+		} catch (PedidoNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+		
+        /*PedidoEntity pedido = pedidoService.getPedido(id);
 
         // Si el artesano no existe mandar mensaje de error
         if (pedido == null) {
@@ -69,6 +79,6 @@ public class PedidoController {
 
         // Retornar al artesano actualizado
         return new ResponseEntity<>(updatePedido, HttpStatus.OK);
-        }
+        }*/
 	}
 }

@@ -2,10 +2,13 @@
 
 	import java.util.List;
 
-	import org.generation.raicesmx.model.ClienteEntity;
+import org.generation.raicesmx.exception.UserNotFoundException;
+import org.generation.raicesmx.model.ClienteEntity;
 	import org.generation.raicesmx.service.ClienteService;
 	import org.springframework.beans.factory.annotation.Autowired;
-	import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 	import org.springframework.web.bind.annotation.GetMapping;
 	import org.springframework.web.bind.annotation.PathVariable;
 	import org.springframework.web.bind.annotation.PostMapping;
@@ -35,20 +38,39 @@
 			return this.clienteService.getCliente(id);
 		}
 		
+		@GetMapping("/email/{email}")
+		public ResponseEntity<ClienteEntity> findByEmail(@PathVariable(name = "email") String email){
+			if(this.clienteService.findByEmail(email) == null) {
+				return ResponseEntity.notFound().build();
+			}
+			
+			return ResponseEntity.ok(this.clienteService.findByEmail(email));
+		}
+		
 		@PostMapping("/new-cliente")
-		public ClienteEntity createCliente(@RequestBody ClienteEntity newCliente){
-			return this.clienteService.createCliente(newCliente);
+		public ResponseEntity<ClienteEntity> createCliente(@RequestBody ClienteEntity newCliente){
+			if(this.clienteService.findByEmail(newCliente.getCorreo()) != null) {
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
+			}
+			return ResponseEntity.status(HttpStatus.CREATED).body(this.clienteService.createCliente(newCliente));
 		}
 		
 		@DeleteMapping("/delete/{id_cliente}")
 	    public void deleteCliente(@PathVariable("id_cliente") Long id_cliente){
-	        clienteService.deleteCliente(id_cliente);
+			this.clienteService.deleteCliente(id_cliente);
 	    }
 
 		@PutMapping("/update/{id}")
-	    public ClienteEntity updateArtesano(@RequestBody ClienteEntity clienteEntity, @PathVariable("id") Long id )
+	    public ResponseEntity<?> updateCliente(@RequestBody ClienteEntity clienteEntity, @PathVariable("id") Long id )
 	    {
-			ClienteEntity cliente = clienteService.getCliente(id);
+			
+			try {
+				return ResponseEntity.ok(this.clienteService.updateCliente(clienteEntity, id));
+			} catch (UserNotFoundException e) {
+				return ResponseEntity.notFound().build();
+			}
+			
+			/*ClienteEntity cliente = clienteService.getCliente(id);
 	        cliente.setNombre( clienteEntity.getNombre() );
 	        cliente.setApellido(clienteEntity.getApellido());
 	        cliente.setCorreo( clienteEntity.getCorreo() );
@@ -58,6 +80,6 @@
 	        cliente.setCodigo_postal( clienteEntity.getCodigo_postal() );
 	        cliente.setEstado( clienteEntity.getEstado() );
 	        cliente.setTipo_usuario( clienteEntity.getTipo_usuario() );
-	        return clienteService.updateCliente( cliente );
+	        return clienteService.updateCliente( cliente );*/
 	    }
 }

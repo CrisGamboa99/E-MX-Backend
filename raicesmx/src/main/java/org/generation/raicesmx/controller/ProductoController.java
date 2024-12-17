@@ -2,6 +2,7 @@ package org.generation.raicesmx.controller;
 
 import java.util.List;
 
+import org.generation.raicesmx.exception.ProductoNotFoundException;
 import org.generation.raicesmx.model.ProductoEntity;
 import org.generation.raicesmx.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,11 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/new-producto")
-	public ProductoEntity createProducto(@RequestBody ProductoEntity newProducto){
-		return this.productoService.createProducto(newProducto);
+	public ResponseEntity<ProductoEntity> createProducto(@RequestBody ProductoEntity newProducto){
+		if(this.productoService.getProducto(newProducto.getId_producto()) != null) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(this.productoService.createProducto(newProducto));
 	}
 	
 	@DeleteMapping("/delete/{id_producto}")
@@ -48,9 +52,15 @@ public class ProductoController {
     }
 	
 	@PutMapping("/update/{id}")
-    public ResponseEntity<ProductoEntity> updateProducto(@RequestBody ProductoEntity ProductoEntity, @PathVariable("id") Long id) {
+    public ResponseEntity<?> updateProducto(@RequestBody ProductoEntity ProductoEntity, @PathVariable("id") Long id) {
 
-        ProductoEntity producto = productoService.getProducto(id);
+		try {
+			return ResponseEntity.ok(this.productoService.updateProducto(ProductoEntity, id));
+		} catch (ProductoNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		/*ProductoEntity producto = productoService.getProducto(id);
 
         // Si el artesano no existe mandar mensaje de error
         if (producto == null) {
@@ -71,6 +81,6 @@ public class ProductoController {
 
         // Retornar al artesano actualizado
         return new ResponseEntity<>(updateProducto, HttpStatus.OK);
-        }
+        }*/
 	}
 }

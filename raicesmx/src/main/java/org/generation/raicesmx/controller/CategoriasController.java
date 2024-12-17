@@ -2,6 +2,8 @@ package org.generation.raicesmx.controller;
 
 import java.util.List;
 
+import org.generation.raicesmx.exception.CategoriaNotFoundException;
+import org.generation.raicesmx.model.ArtesanoEntity;
 import org.generation.raicesmx.model.CategoriasEntity;
 import org.generation.raicesmx.service.CategoriasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,31 +26,58 @@ public class CategoriasController {
 public CategoriasController(CategoriasService categoriasService) {
 	this.categoriasService = categoriasService;
 }
+
 @GetMapping("/getall")
 public List<CategoriasEntity> getCategorias(){
 	return this.categoriasService.getAllCategorias();
 }
-@PostMapping("/new-categorias")
-public CategoriasEntity createCategoria(@RequestBody CategoriasEntity newCategoria) {
-	return this.categoriasService.createCategoria(newCategoria);
+
+@GetMapping("/nombre/{nombre}")
+public ResponseEntity<CategoriasEntity> findByNombreCategoria(@PathVariable(name = "nombre") String nombre){
+	if(this.categoriasService.findByNombreCategoria(nombre) == null) {
+		return ResponseEntity.notFound().build();
+	}
+	
+	return ResponseEntity.ok(this.categoriasService.findByNombreCategoria(nombre));
 }
+
+@PostMapping("/new-categorias")
+public ResponseEntity<CategoriasEntity> createCategoria(@RequestBody CategoriasEntity newCategoria) {
+	if(this.categoriasService.findByNombreCategoria(newCategoria.getNombre_categoria()) != null) {
+		return new ResponseEntity<>(HttpStatus.CONFLICT);
+	}
+	return ResponseEntity.status(HttpStatus.CREATED).body(this.categoriasService.createCategoria(newCategoria));
+}
+
+
  @DeleteMapping("/delete/{id_categorias}")
  public void deleteCategoria(@PathVariable("id_categorias") Long id_categorias) {
 	 this.categoriasService.deleteCategoria(id_categorias);
  }
+ 
+ 
 @GetMapping("/get/{id_categorias}")
 public CategoriasEntity getCategoria(@PathVariable("id_categorias") Long id_categorias) {
 	return this.categoriasService.getCategoria(id_categorias);
 }
+
+
 @PutMapping("/put/{id_categorias}") 
-public ResponseEntity<CategoriasEntity> updateCategoria(@RequestBody CategoriasEntity categoriasModelo,@PathVariable("id_categorias") Long id_categorias){
-	CategoriasEntity categoria= categoriasService.getCategoria(id_categorias);
+public ResponseEntity<?> updateCategoria(@RequestBody CategoriasEntity categoriasModelo,@PathVariable("id_categorias") Long id_categorias){
+	
+	try {
+		return ResponseEntity.ok(this.categoriasService.updateCategoria(categoriasModelo, id_categorias));
+	} catch (CategoriaNotFoundException e) {
+		return ResponseEntity.notFound().build();
+	}
+	
+	/*CategoriasEntity categoria= categoriasService.getCategoria(id_categorias);
 	if (categoria==null) {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	} else {
 		categoria.setNombre_categoria(categoriasModelo.getNombre_categoria());
 		CategoriasEntity updateCategoria= categoriasService.updateCategoria(categoria);
 		return new ResponseEntity<>(updateCategoria,HttpStatus.OK);
-	}
+	} */
 }
 }

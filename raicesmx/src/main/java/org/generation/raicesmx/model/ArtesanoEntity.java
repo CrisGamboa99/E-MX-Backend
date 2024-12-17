@@ -27,7 +27,7 @@ public class ArtesanoEntity {
 	@Column(name = "empresa", length = 45, nullable = false)
 	private String empresa;
 	
-	@Column(name = "correo", length = 100, nullable = false)
+	@Column(name = "correo", length = 100, nullable = false, unique = true)
 	private String correo;
 	
 	@Column(name = "password", length = 45, nullable = false)

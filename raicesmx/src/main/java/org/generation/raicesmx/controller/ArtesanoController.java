@@ -2,6 +2,7 @@
 
 import java.util.List;
 
+import org.generation.raicesmx.exception.UserNotFoundException;
 import org.generation.raicesmx.model.ArtesanoEntity;
 import org.generation.raicesmx.service.ArtesanoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,23 +34,43 @@ public class ArtesanoController {
 	}
 	
 	@GetMapping("/get/{id}")
-	public ArtesanoEntity getArtesano(@PathVariable("id") Long id) {
+	public ArtesanoEntity getArtesano(@PathVariable(name = "id") Long id) {
 		return this.artesanoService.getArtesano(id);
 	}
 	
-	@PostMapping("/new-user")
-	public ArtesanoEntity createArtesano(@RequestBody ArtesanoEntity newArtesano){
-		return this.artesanoService.createArtesano(newArtesano);
+	@GetMapping("/email/{email}")
+	public ResponseEntity<ArtesanoEntity> findByEmail(@PathVariable(name = "email") String email){
+		if(this.artesanoService.findByEmail(email) == null) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		return ResponseEntity.ok(this.artesanoService.findByEmail(email));
 	}
 	
+	@PostMapping("/new-user")
+	public ResponseEntity<ArtesanoEntity> createArtesano(@RequestBody ArtesanoEntity newArtesano){
+		if(this.artesanoService.findByEmail(newArtesano.getCorreo()) != null) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(this.artesanoService.createArtesano(newArtesano));
+	}
+
+	
 	@DeleteMapping("/delete/{id_artesano}")
-    public void deleteArtesano(@PathVariable("id_artesano") Long id_artesano){
-        artesanoService.deleteArtesano(id_artesano);
+    public void deleteArtesano(@PathVariable(name = "id_artesano") Long id_artesano){
+        this.artesanoService.deleteArtesano(id_artesano);
     }
 
 	@PutMapping("/update/{id}")
-    public ResponseEntity<ArtesanoEntity> updateArtesano(@RequestBody ArtesanoEntity artesanoEntity, @PathVariable("id") Long id ){
-        ArtesanoEntity artesano = artesanoService.getArtesano(id);
+    public ResponseEntity<?> updateArtesano(@RequestBody ArtesanoEntity artesanoEntity, @PathVariable(name = "id") Long id ){
+        
+		try {
+			return ResponseEntity.ok(this.artesanoService.updateArtesano(artesanoEntity, id));
+		} catch (UserNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		/* ArtesanoEntity artesano = artesanoService.getArtesano(id);
         
         if (artesano == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Retorna un 404 si no se encuentra el artesano
@@ -70,7 +91,7 @@ public class ArtesanoController {
             
             // Retornar al artesano actualizado
             return new ResponseEntity<>(updateArtesano, HttpStatus.OK);
-        }
+        } */
     }
 }
 

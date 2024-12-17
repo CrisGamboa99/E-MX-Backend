@@ -1,9 +1,9 @@
 package org.generation.raicesmx.service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.generation.raicesmx.exception.UserNotFoundException;
 import org.generation.raicesmx.model.ClienteEntity;
 import org.generation.raicesmx.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,24 +25,35 @@ public class ClienteService {
     }
 	
 	public ClienteEntity getCliente(Long id_cliente){
-	    return clienteRepository.findById(id_cliente).orElse(null);
+	    return clienteRepository.findById(id_cliente)
+	    		.orElseThrow(() -> new UserNotFoundException(id_cliente));
 	}
 
+	// Mostrar por correo
+		public ClienteEntity findByEmail(String correo) {
+			return this.clienteRepository.findByEmail(correo);
+		}
+	
+		// Crear un nuevo registro
     public ClienteEntity createCliente (ClienteEntity newCliente) {
         return this.clienteRepository.save(newCliente);
     }
     
+    
     public void deleteCliente(Long id) {
-        clienteRepository.deleteById(id);
+    	if(this.clienteRepository.existsById(id)) {
+    		clienteRepository.deleteById(id);
+    	}else {
+    		throw new UserNotFoundException(id);
+    	}
     }
     
     
-    public ClienteEntity updateCliente(ClienteEntity clienteEntity) {
+    public ClienteEntity updateCliente(ClienteEntity clienteEntity, Long id) {
         Optional < ClienteEntity > clienteDb = this.clienteRepository.findById(clienteEntity.getId_clientes());
 
         if (clienteDb.isPresent()) {
             ClienteEntity clienteUpdate = clienteDb.get();
-            clienteUpdate.setId_clientes(clienteEntity.getId_clientes());
             clienteUpdate.setNombre(clienteEntity.getNombre());
             clienteUpdate.setApellido( clienteEntity.getApellido() );
             clienteUpdate.setCorreo( clienteEntity.getCorreo() );
@@ -51,11 +62,10 @@ public class ClienteService {
             clienteUpdate.setTelefono( clienteEntity.getTelefono() );
             clienteUpdate.setCodigo_postal( clienteEntity.getCodigo_postal() );
             clienteUpdate.setEstado( clienteEntity.getEstado() );
-            clienteUpdate.setTipo_usuario( clienteEntity.getTipo_usuario() );
             clienteRepository.save(clienteUpdate);
             return clienteUpdate;
         } else {
-            throw new NoSuchElementException("No se encontró al cliente con ID: " + clienteEntity.getId_clientes());
+        	throw new UserNotFoundException(id);
         }
     }
 }

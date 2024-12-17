@@ -1,9 +1,9 @@
 package org.generation.raicesmx.service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.generation.raicesmx.exception.StatusNotFoundException;
 import org.generation.raicesmx.model.StatusEntity;
 import org.generation.raicesmx.repository.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,13 @@ public class StatusService {
 	}
 
 	public StatusEntity getStatus(Long id_status){
-	    return statusRepository.findById(id_status).orElse(null);
+	    return statusRepository.findById(id_status)
+	    		.orElseThrow(() -> new StatusNotFoundException(id_status));
+	}
+	
+	// Mostrar por status
+	public StatusEntity findByStatus(String nombre) {
+		return this.statusRepository.findByStatus(nombre);
 	}
 
 	public StatusEntity createStatus (StatusEntity newStatus) {
@@ -32,20 +38,24 @@ public class StatusService {
 	}
     
     public void deleteStatus(Long id) {
-        statusRepository.deleteById(id);
+        
+    	if(this.statusRepository.existsById(id)) {
+        	statusRepository.deleteById(id);
+    	}else {
+    		throw new StatusNotFoundException(id);
+    	}
     }
     
-    public StatusEntity updateStatus(StatusEntity statusModelo) {
+    public StatusEntity updateStatus(StatusEntity statusModelo, Long id) {
         Optional < StatusEntity > statusDb = this.statusRepository.findById(statusModelo.getId_status());
 
         if (statusDb.isPresent()) {
             StatusEntity statusUpdate = statusDb.get();
-            statusUpdate.setId_status(statusModelo.getId_status());
             statusUpdate.setTipo_status(statusModelo.getTipo_status());
             statusRepository.save(statusUpdate);
             return statusUpdate;
         } else {
-            throw new NoSuchElementException("No se encontró registro con id : " + statusModelo.getId_status());
+        	throw new StatusNotFoundException(id);
         }
     } 
 }

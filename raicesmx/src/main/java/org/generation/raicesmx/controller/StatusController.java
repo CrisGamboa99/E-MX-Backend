@@ -2,6 +2,7 @@ package org.generation.raicesmx.controller;
 
 import java.util.List;
 
+import org.generation.raicesmx.exception.StatusNotFoundException;
 import org.generation.raicesmx.model.StatusEntity;
 import org.generation.raicesmx.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,25 +38,44 @@ public class StatusController {
 		return this.statusService.getStatus(id);
 	}
 	
+	@GetMapping("/tipo/{nombre}")
+	public ResponseEntity<StatusEntity> findByStatus(@PathVariable(name = "nombre") String nombre){
+		if(this.statusService.findByStatus(nombre) == null) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		return ResponseEntity.ok(this.statusService.findByStatus(nombre));
+	}
+	
 	@PostMapping("/new-status")
-	public StatusEntity createStatus(@RequestBody StatusEntity newStatus){
-		return this.statusService.createStatus(newStatus);
+	public ResponseEntity<StatusEntity> createStatus(@RequestBody StatusEntity newStatus){
+		if(this.statusService.findByStatus(newStatus.getTipo_status()) != null) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(this.statusService.createStatus(newStatus));
 	}
 	
 	@DeleteMapping("/delete/{id_status}")
     public void deleteStatus(@PathVariable("id_status") Long id_status){
-        statusService.deleteStatus(id_status);
+        this.statusService.deleteStatus(id_status);
     }
 	
 	@PutMapping("/put/{id_status}") 
-	public ResponseEntity<StatusEntity> updateStatus(@RequestBody StatusEntity statusModelo,@PathVariable("id_status") Long id_status){
-		StatusEntity status= statusService.getStatus(id_status);
+	public ResponseEntity<?> updateStatus(@RequestBody StatusEntity statusModelo,@PathVariable("id_status") Long id_status){
+		
+		try {
+			return ResponseEntity.ok(this.statusService.updateStatus(statusModelo, id_status));
+		} catch (StatusNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		/*StatusEntity status= statusService.getStatus(id_status);
 		if (status==null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			status.setTipo_status(statusModelo.getTipo_status());
 			StatusEntity updateStatus= statusService.updateStatus(status);
 			return new ResponseEntity<>(updateStatus,HttpStatus.OK);
-		}
+		}*/
 	}
 }
