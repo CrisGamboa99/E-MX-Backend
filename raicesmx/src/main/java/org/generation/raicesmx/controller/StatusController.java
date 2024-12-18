@@ -1,7 +1,6 @@
 package org.generation.raicesmx.controller;
 
 import java.util.List;
-
 import org.generation.raicesmx.exception.StatusNotFoundException;
 import org.generation.raicesmx.model.StatusEntity;
 import org.generation.raicesmx.service.StatusService;

@@ -1,12 +1,13 @@
 package org.generation.raicesmx.model;
 
+import java.util.List;
 import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,16 +26,18 @@ public class CategoriasEntity {
 	// @Column(name = "descripcion_categoria", length = 100, nullable = false)
 	// private String descripcion_categoria;
 
+	@OneToMany(mappedBy = "categorias")
+	private List<ProductoEntity> producto;
+	
 	public CategoriasEntity() {
 		
 	}
 
-	public CategoriasEntity(Long id_categorias, String nombre_categoria
-			//, String descripcion_categoria 
-			) {
+	public CategoriasEntity(Long id_categorias, String nombre_categoria, List<ProductoEntity> producto) {
+		super();
 		this.id_categorias = id_categorias;
 		this.nombre_categoria = nombre_categoria;
-		// this.descripcion_categoria = descripcion_categoria;
+		this.producto = producto;
 	}
 
 	public Long getId_categorias() {
@@ -53,26 +56,23 @@ public class CategoriasEntity {
 		this.nombre_categoria = nombre_categoria;
 	}
 
-	// public String getDescripcion_categoria() {
-	//	return descripcion_categoria;
-	// }
+	public List<ProductoEntity> getProducto() {
+		return producto;
+	}
 
-	// public void setDescripcion_categoria(String descripcion_categoria) {
-	//	this.descripcion_categoria = descripcion_categoria;
-	// }
+	public void setProducto(List<ProductoEntity> producto) {
+		this.producto = producto;
+	}
 
 	@Override
 	public String toString() {
 		return "CategoriasEntity [id_categorias=" + id_categorias + ", nombre_categoria=" + nombre_categoria
-				//+ ", descripcion_categoria=" + descripcion_categoria 
-				+ "]";
+				+ ", producto=" + producto + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(
-				//descripcion_categoria, 
-				id_categorias, nombre_categoria);
+		return Objects.hash(id_categorias, nombre_categoria, producto);
 	}
 
 	@Override
@@ -84,11 +84,9 @@ public class CategoriasEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		CategoriasEntity other = (CategoriasEntity) obj;
-		return 
-				//Objects.equals(descripcion_categoria, other.descripcion_categoria) && 
-				Objects.equals(id_categorias, other.id_categorias)
-				&& Objects.equals(nombre_categoria, other.nombre_categoria);
+		return Objects.equals(id_categorias, other.id_categorias)
+				&& Objects.equals(nombre_categoria, other.nombre_categoria) && Objects.equals(producto, other.producto);
 	}
-	
+
 	
 }

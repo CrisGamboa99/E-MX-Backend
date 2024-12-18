@@ -1,12 +1,13 @@
 package org.generation.raicesmx.model;
 
+import java.util.List;
 import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -48,13 +49,16 @@ public class ArtesanoEntity {
 	@Column(name = "tipo_usuario", length = 45, nullable = false)
 	private String tipo_usuario;
 
+	@OneToMany(mappedBy = "artesano")
+	private List<ProductoEntity> producto;
+	
 	public ArtesanoEntity() {
 		
 	}
 
 	public ArtesanoEntity(Long id_artesano, String nombre, String apellido, String empresa, String correo,
 			String password, String direccion, String telefono, String codigo_postal, String estado,
-			String tipo_usuario) {
+			String tipo_usuario, List<ProductoEntity> producto) {
 		super();
 		this.id_artesano = id_artesano;
 		this.nombre = nombre;
@@ -67,6 +71,7 @@ public class ArtesanoEntity {
 		this.codigo_postal = codigo_postal;
 		this.estado = estado;
 		this.tipo_usuario = tipo_usuario;
+		this.producto = producto;
 	}
 
 	public Long getId_artesano() {
@@ -157,18 +162,26 @@ public class ArtesanoEntity {
 		this.tipo_usuario = tipo_usuario;
 	}
 
+	public List<ProductoEntity> getProducto() {
+		return producto;
+	}
+
+	public void setProducto(List<ProductoEntity> producto) {
+		this.producto = producto;
+	}
+
 	@Override
 	public String toString() {
 		return "ArtesanoEntity [id_artesano=" + id_artesano + ", nombre=" + nombre + ", apellido=" + apellido
 				+ ", empresa=" + empresa + ", correo=" + correo + ", password=" + password + ", direccion=" + direccion
 				+ ", telefono=" + telefono + ", codigo_postal=" + codigo_postal + ", estado=" + estado
-				+ ", tipo_usuario=" + tipo_usuario + "]";
+				+ ", tipo_usuario=" + tipo_usuario + ", producto=" + producto + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(apellido, codigo_postal, correo, direccion, empresa, estado, id_artesano, nombre, password,
-				telefono, tipo_usuario);
+				producto, telefono, tipo_usuario);
 	}
 
 	@Override
@@ -184,7 +197,9 @@ public class ArtesanoEntity {
 				&& Objects.equals(correo, other.correo) && Objects.equals(direccion, other.direccion)
 				&& Objects.equals(empresa, other.empresa) && Objects.equals(estado, other.estado)
 				&& Objects.equals(id_artesano, other.id_artesano) && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(password, other.password) && Objects.equals(telefono, other.telefono)
-				&& Objects.equals(tipo_usuario, other.tipo_usuario);
+				&& Objects.equals(password, other.password) && Objects.equals(producto, other.producto)
+				&& Objects.equals(telefono, other.telefono) && Objects.equals(tipo_usuario, other.tipo_usuario);
 	}
+
+	
 }

@@ -2,7 +2,6 @@ package org.generation.raicesmx.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.generation.raicesmx.exception.UserNotFoundException;
 import org.generation.raicesmx.model.ArtesanoEntity;
 import org.generation.raicesmx.repository.ArtesanoRepository;

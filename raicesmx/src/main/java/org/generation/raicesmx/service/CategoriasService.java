@@ -17,9 +17,14 @@ public class CategoriasService {
 		this.categoriasRepository = categoriasRepository;
 	}
     
-    
     public List<CategoriasEntity> getAllCategorias(){
     	return this.categoriasRepository.findAll();
+    }
+    
+    // Mostrar un registro por id
+    public CategoriasEntity getCategoria(Long id_categorias) {
+    	return categoriasRepository.findById(id_categorias)
+    			.orElseThrow(() -> new CategoriaNotFoundException(id_categorias));
     }
     
     // Mostrar por nombre
@@ -40,12 +45,6 @@ public class CategoriasService {
     		throw new CategoriaNotFoundException(id);
     	}
     	
-    }
-    
-    // Mostrar un registro por id
-    public CategoriasEntity getCategoria(Long id_categorias) {
-    	return categoriasRepository.findById(id_categorias)
-    			.orElseThrow(() -> new CategoriaNotFoundException(id_categorias));
     }
     
     public CategoriasEntity updateCategoria(CategoriasEntity categoriasModelo, Long id) {

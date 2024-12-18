@@ -2,7 +2,6 @@ package org.generation.raicesmx.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.generation.raicesmx.exception.UserNotFoundException;
 import org.generation.raicesmx.model.ClienteEntity;
 import org.generation.raicesmx.repository.ClienteRepository;
@@ -30,11 +29,11 @@ public class ClienteService {
 	}
 
 	// Mostrar por correo
-		public ClienteEntity findByEmail(String correo) {
-			return this.clienteRepository.findByEmail(correo);
-		}
+	public ClienteEntity findByEmail(String correo) {
+		return this.clienteRepository.findByEmail(correo);
+	}
 	
-		// Crear un nuevo registro
+	// Crear un nuevo registro
     public ClienteEntity createCliente (ClienteEntity newCliente) {
         return this.clienteRepository.save(newCliente);
     }

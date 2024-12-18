@@ -1,8 +1,10 @@
 package org.generation.raicesmx.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,42 +37,45 @@ public class ProductoEntity {
 	@Column(name = "stock", nullable = false)
 	private Integer stock;
 	
-	@ManyToOne
-	@JoinColumn(name = "Categorias_idCategorias", nullable = false)
-	private CategoriasEntity categorias_idCategorias;
-	
-	@ManyToOne
-	@JoinColumn(name = "status", nullable = false)
-	private StatusEntity status;
-	
 	@Column(name = "descripcion", length = 200, nullable = false)
 	private String descripcion;
 	
 	@ManyToOne
-	@JoinColumn(name = "artesano_idArtesano", nullable = false)
-	private ArtesanoEntity artesano_idArtesano;
+	@JoinColumn(name = "id_categorias", referencedColumnName = "id_categorias")
+	@JsonIgnore
+	private CategoriasEntity categorias;
 	
-	@ManyToMany(mappedBy = "Producto_idProducto")  // "productos" es el atributo en la entidad Pedido
-	private Set<PedidoEntity> Pedido_idPedidos;
+	@ManyToOne
+	@JoinColumn(name = "id_status", referencedColumnName = "id_status")
+	@JsonIgnore
+	private StatusEntity status;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_artesano", referencedColumnName = "id_artesano")
+	@JsonIgnore
+	private ArtesanoEntity artesano;
+	
+	@ManyToMany(mappedBy = "producto")  // "productos" es el atributo en la entidad Pedido
+	private List<PedidoEntity> pedido;
 
 	public ProductoEntity() {
 		
 	}
 
 	public ProductoEntity(Long id_producto, String imagen_url, String nombre, BigDecimal precio, Integer stock,
-			CategoriasEntity categorias_idCategorias, StatusEntity status, String descripcion,
-			ArtesanoEntity artesano_idArtesano, Set<PedidoEntity> pedido_idPedidos) {
+			String descripcion, CategoriasEntity categorias, StatusEntity status, ArtesanoEntity artesano,
+			List<PedidoEntity> pedido) {
 		super();
 		this.id_producto = id_producto;
 		this.imagen_url = imagen_url;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.stock = stock;
-		this.categorias_idCategorias = categorias_idCategorias;
-		this.status = status;
 		this.descripcion = descripcion;
-		this.artesano_idArtesano = artesano_idArtesano;
-		Pedido_idPedidos = pedido_idPedidos;
+		this.categorias = categorias;
+		this.status = status;
+		this.artesano = artesano;
+		this.pedido = pedido;
 	}
 
 	public Long getId_producto() {
@@ -113,12 +118,20 @@ public class ProductoEntity {
 		this.stock = stock;
 	}
 
-	public CategoriasEntity getCategorias_idCategorias() {
-		return categorias_idCategorias;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setCategorias_idCategorias(CategoriasEntity categorias_idCategorias) {
-		this.categorias_idCategorias = categorias_idCategorias;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public CategoriasEntity getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(CategoriasEntity categorias) {
+		this.categorias = categorias;
 	}
 
 	public StatusEntity getStatus() {
@@ -129,42 +142,33 @@ public class ProductoEntity {
 		this.status = status;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public ArtesanoEntity getArtesano() {
+		return artesano;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setArtesano(ArtesanoEntity artesano) {
+		this.artesano = artesano;
 	}
 
-	public ArtesanoEntity getArtesano_idArtesano() {
-		return artesano_idArtesano;
+	public List<PedidoEntity> getPedido() {
+		return pedido;
 	}
 
-	public void setArtesano_idArtesano(ArtesanoEntity artesano_idArtesano) {
-		this.artesano_idArtesano = artesano_idArtesano;
-	}
-
-	public Set<PedidoEntity> getPedido_idPedidos() {
-		return Pedido_idPedidos;
-	}
-
-	public void setPedido_idPedidos(Set<PedidoEntity> pedido_idPedidos) {
-		Pedido_idPedidos = pedido_idPedidos;
+	public void setPedido(List<PedidoEntity> pedido) {
+		this.pedido = pedido;
 	}
 
 	@Override
 	public String toString() {
 		return "ProductoEntity [id_producto=" + id_producto + ", imagen_url=" + imagen_url + ", nombre=" + nombre
-				+ ", precio=" + precio + ", stock=" + stock + ", categorias_idCategorias=" + categorias_idCategorias
-				+ ", status=" + status + ", descripcion=" + descripcion + ", artesano_idArtesano=" + artesano_idArtesano
-				+ ", Pedido_idPedidos=" + Pedido_idPedidos + "]";
+				+ ", precio=" + precio + ", stock=" + stock + ", descripcion=" + descripcion + ", categorias="
+				+ categorias + ", status=" + status + ", artesano=" + artesano + ", pedido=" + pedido + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(Pedido_idPedidos, artesano_idArtesano, categorias_idCategorias, descripcion, id_producto,
-				imagen_url, nombre, precio, status, stock);
+		return Objects.hash(artesano, categorias, descripcion, id_producto, imagen_url, nombre, pedido, precio, status,
+				stock);
 	}
 
 	@Override
@@ -176,15 +180,12 @@ public class ProductoEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductoEntity other = (ProductoEntity) obj;
-		return Objects.equals(Pedido_idPedidos, other.Pedido_idPedidos)
-				&& Objects.equals(artesano_idArtesano, other.artesano_idArtesano)
-				&& Objects.equals(categorias_idCategorias, other.categorias_idCategorias)
+		return Objects.equals(artesano, other.artesano) && Objects.equals(categorias, other.categorias)
 				&& Objects.equals(descripcion, other.descripcion) && Objects.equals(id_producto, other.id_producto)
 				&& Objects.equals(imagen_url, other.imagen_url) && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(precio, other.precio) && Objects.equals(status, other.status)
-				&& Objects.equals(stock, other.stock);
+				&& Objects.equals(pedido, other.pedido) && Objects.equals(precio, other.precio)
+				&& Objects.equals(status, other.status) && Objects.equals(stock, other.stock);
 	}
 
-	
 	
 }

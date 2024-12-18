@@ -1,12 +1,13 @@
 package org.generation.raicesmx.model;
 
+import java.util.List;
 import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -48,13 +49,17 @@ public class ClienteEntity {
 	@Column(name = "tipo_usuario", length = 45, nullable = false)
 	private String tipo_usuario;
 
+	@OneToMany(mappedBy = "clientes")
+	private List<PedidoEntity> pedido;
+	
 	public ClienteEntity() {
 		
 	}
 
 	public ClienteEntity(Long id_clientes, String nombre, String apellido, String correo, String contrasena,
-			String telefono, String direccion, String ciudad, String estado, String codigo_postal,
-			String tipo_usuario) {
+			String telefono, String direccion, String ciudad, String estado, String codigo_postal, String tipo_usuario,
+			List<PedidoEntity> pedido) {
+		super();
 		this.id_clientes = id_clientes;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -66,6 +71,7 @@ public class ClienteEntity {
 		this.estado = estado;
 		this.codigo_postal = codigo_postal;
 		this.tipo_usuario = tipo_usuario;
+		this.pedido = pedido;
 	}
 
 	public Long getId_clientes() {
@@ -156,18 +162,26 @@ public class ClienteEntity {
 		this.tipo_usuario = tipo_usuario;
 	}
 
+	public List<PedidoEntity> getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(List<PedidoEntity> pedido) {
+		this.pedido = pedido;
+	}
+
 	@Override
 	public String toString() {
 		return "ClienteEntity [id_clientes=" + id_clientes + ", nombre=" + nombre + ", apellido=" + apellido
 				+ ", correo=" + correo + ", contrasena=" + contrasena + ", telefono=" + telefono + ", direccion="
 				+ direccion + ", ciudad=" + ciudad + ", estado=" + estado + ", codigo_postal=" + codigo_postal
-				+ ", tipo_usuario=" + tipo_usuario + "]";
+				+ ", tipo_usuario=" + tipo_usuario + ", pedido=" + pedido + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(apellido, ciudad, codigo_postal, contrasena, correo, direccion, estado, id_clientes, nombre,
-				telefono, tipo_usuario);
+				pedido, telefono, tipo_usuario);
 	}
 
 	@Override
@@ -183,10 +197,9 @@ public class ClienteEntity {
 				&& Objects.equals(codigo_postal, other.codigo_postal) && Objects.equals(contrasena, other.contrasena)
 				&& Objects.equals(correo, other.correo) && Objects.equals(direccion, other.direccion)
 				&& Objects.equals(estado, other.estado) && Objects.equals(id_clientes, other.id_clientes)
-				&& Objects.equals(nombre, other.nombre) && Objects.equals(telefono, other.telefono)
-				&& Objects.equals(tipo_usuario, other.tipo_usuario);
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(pedido, other.pedido)
+				&& Objects.equals(telefono, other.telefono) && Objects.equals(tipo_usuario, other.tipo_usuario);
 	}
-	
-	
+
 	
 }
