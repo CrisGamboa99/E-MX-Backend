@@ -1,6 +1,7 @@
 package org.generation.raicesmx.controller;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.generation.raicesmx.exception.ProductoNotFoundException;
 import org.generation.raicesmx.model.ProductoEntity;
 import org.generation.raicesmx.service.ProductoService;
@@ -8,6 +9,7 @@ import org.generation.raicesmx.service.dto.ProductoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "api/v1/producto")
+@CrossOrigin(origins="*",methods= {RequestMethod.GET, RequestMethod.POST })
 public class ProductoController {
 
 	private final ProductoService productoService;
