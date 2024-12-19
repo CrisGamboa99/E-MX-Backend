@@ -4,6 +4,7 @@ import java.util.List;
 import org.generation.raicesmx.exception.ProductoNotFoundException;
 import org.generation.raicesmx.model.ProductoEntity;
 import org.generation.raicesmx.service.ProductoService;
+import org.generation.raicesmx.service.dto.ProductoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,11 +39,11 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/new-producto")
-	public ResponseEntity<ProductoEntity> createProducto(@RequestBody ProductoEntity newProducto){
-		if(this.productoService.getProducto(newProducto.getId_producto()) != null) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(this.productoService.createProducto(newProducto));
+	public ResponseEntity<ProductoEntity> createProducto(@RequestBody ProductoDto dto){
+//		if(this.productoService.getProducto(newProducto.getId_producto()) != null) {
+//			return new ResponseEntity<>(HttpStatus.CONFLICT);
+//		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(this.productoService.createProducto(dto));
 	}
 	
 	@DeleteMapping("/delete/{id_producto}")

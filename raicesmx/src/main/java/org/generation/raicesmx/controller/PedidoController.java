@@ -4,6 +4,7 @@ import java.util.List;
 import org.generation.raicesmx.exception.PedidoNotFoundException;
 import org.generation.raicesmx.model.PedidoEntity;
 import org.generation.raicesmx.service.PedidoService;
+import org.generation.raicesmx.service.dto.PedidoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,11 +39,11 @@ public class PedidoController {
 	}
 	
 	@PostMapping("/new-pedido")
-	public ResponseEntity<PedidoEntity> createPedido(@RequestBody PedidoEntity newPedido){
-		if(this.pedidoService.getPedido(newPedido.getId_pedido()) != null) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(this.pedidoService.createPedido(newPedido));
+	public ResponseEntity<PedidoEntity> createPedido(@RequestBody PedidoDto dto){
+		// if(this.pedidoService.getPedido(newPedido.getId_pedido()) != null) {
+			//return new ResponseEntity<>(HttpStatus.CONFLICT);
+		//}
+		return ResponseEntity.status(HttpStatus.CREATED).body(this.pedidoService.createPedido(dto));
 	}
 	
 	@DeleteMapping("/delete/{id_pedido}")

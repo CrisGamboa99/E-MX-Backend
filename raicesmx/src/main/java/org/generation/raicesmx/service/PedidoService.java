@@ -5,8 +5,12 @@ import java.util.Optional;
 
 import org.generation.raicesmx.exception.PedidoNotFoundException;
 import org.generation.raicesmx.exception.UserNotFoundException;
+import org.generation.raicesmx.model.ClienteEntity;
 import org.generation.raicesmx.model.PedidoEntity;
+import org.generation.raicesmx.model.ProductoEntity;
+import org.generation.raicesmx.repository.ClienteRepository;
 import org.generation.raicesmx.repository.PedidoRepository;
+import org.generation.raicesmx.service.dto.PedidoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +18,19 @@ import org.springframework.stereotype.Service;
 public class PedidoService {
 	
 	private final PedidoRepository pedidoRepository;
+	private final ClienteRepository clienteRepository;
 	
 	@Autowired
-	public PedidoService (PedidoRepository pedidoRepository) {
+	public PedidoService(PedidoRepository pedidoRepository, ClienteRepository clienteRepository) {
+		super();
 		this.pedidoRepository = pedidoRepository;
+		this.clienteRepository = clienteRepository;
 	}
 	
 	public List<PedidoEntity> getAllPedido(){
         return this.pedidoRepository.findAll();
     }
-	
+
 	// Mostrar un registro por id
 	public PedidoEntity getPedido(Long id_pedido){
 	    return pedidoRepository.findById(id_pedido)
@@ -31,8 +38,19 @@ public class PedidoService {
 	}
 
 	
-    public PedidoEntity createPedido (PedidoEntity newPedido) {
-        return this.pedidoRepository.save(newPedido);
+    public PedidoEntity createPedido (PedidoDto dto) {
+    	ClienteEntity cliente = this.clienteRepository.findById(dto.getId_clientes()).orElseThrow(() -> new UserNotFoundException(dto.getId_clientes()));
+	    
+	    PedidoEntity pedido = new PedidoEntity();
+	    
+	    pedido.setTotal(dto.getTotal());
+	    pedido.setDescripcion(dto.getDescripcion());
+	    pedido.setEstado_pedido(dto.getEstado_pedido());
+	    pedido.setFecha(dto.getFecha());
+
+	    pedido.setClientes(cliente);
+	    
+	    return this.pedidoRepository.save(pedido);
     }
     
     // Eliminar un registro por id

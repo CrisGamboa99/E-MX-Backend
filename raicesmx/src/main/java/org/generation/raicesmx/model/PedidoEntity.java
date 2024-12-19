@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -43,9 +46,10 @@ public class PedidoEntity {
 
     @ManyToOne //creo, no recuerdo bien
     @JoinColumn(name = "id_clientes" , referencedColumnName = "id_clientes")
+    @JsonIgnore
     private ClienteEntity clientes;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "pedido")
     /*@JoinTable(
             name = "Pedido_has_Producto",  // Tabla intermedia
             joinColumns = @JoinColumn(name = "id_pedido"),  // Columna de llave foránea a Pedido

@@ -17,7 +17,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Producto")
+@Table(name = "producto")
 public class ProductoEntity {
 
 	@Id
@@ -55,8 +55,10 @@ public class ProductoEntity {
 	@JsonIgnore
 	private ArtesanoEntity artesano;
 	
-	@ManyToMany(mappedBy = "producto")  // "productos" es el atributo en la entidad Pedido
-	private List<PedidoEntity> pedido;
+	@ManyToOne
+	@JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido")  // "productos" es el atributo en la entidad Pedido
+	@JsonIgnore
+	private PedidoEntity pedido;
 
 	public ProductoEntity() {
 		
@@ -64,7 +66,7 @@ public class ProductoEntity {
 
 	public ProductoEntity(Long id_producto, String imagen_url, String nombre, BigDecimal precio, Integer stock,
 			String descripcion, CategoriasEntity categorias, StatusEntity status, ArtesanoEntity artesano,
-			List<PedidoEntity> pedido) {
+			PedidoEntity pedido) {
 		super();
 		this.id_producto = id_producto;
 		this.imagen_url = imagen_url;
@@ -150,11 +152,11 @@ public class ProductoEntity {
 		this.artesano = artesano;
 	}
 
-	public List<PedidoEntity> getPedido() {
+	public PedidoEntity getPedido() {
 		return pedido;
 	}
 
-	public void setPedido(List<PedidoEntity> pedido) {
+	public void setPedido(PedidoEntity pedido) {
 		this.pedido = pedido;
 	}
 
