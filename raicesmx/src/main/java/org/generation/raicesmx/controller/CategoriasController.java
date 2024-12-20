@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/categorias")
-@CrossOrigin(origins="*",methods= {RequestMethod.GET, RequestMethod.POST })
+@CrossOrigin(origins="*")
 public class CategoriasController {
 	private final CategoriasService categoriasService;
 	

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "api/v1/cliente")
-@CrossOrigin(origins="*",methods= {RequestMethod.GET, RequestMethod.POST })
+@CrossOrigin(origins="*")
 public class ClienteController {
 
 	private final ClienteService clienteService;

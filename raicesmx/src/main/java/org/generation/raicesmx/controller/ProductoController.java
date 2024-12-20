@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "api/v1/producto")
-@CrossOrigin(origins="*",methods= {RequestMethod.GET, RequestMethod.POST })
+@CrossOrigin(origins="*")
 public class ProductoController {
 
 	private final ProductoService productoService;

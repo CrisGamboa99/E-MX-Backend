@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "api/v1/artesano")
-@CrossOrigin(origins="*",methods= {RequestMethod.GET, RequestMethod.POST })
+@CrossOrigin(origins="*")
 public class ArtesanoController {
 
 	private final ArtesanoService artesanoService;
