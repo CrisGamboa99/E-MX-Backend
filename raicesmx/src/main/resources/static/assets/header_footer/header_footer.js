@@ -12,8 +12,8 @@ if  (localStorage.getItem("login_success")){
       <div class="container-fluid">
         <nav class="navbar"> <!-- navbar para el link del logo -->
           <section> 
-            <a class="navbar-brand" href="/Raices-Ecommerce/src/inicio.html">
-              <img src="/Raices-Ecommerce/src/assets/Images/caco.png" alt="Raíces México" width="100"> <!---->
+            <a class="navbar-brand" href="/index.html">
+              <img src="/assets/Images/caco.png" alt="Raíces México" width="100"> <!---->
             </a> 
           </section>        
           <section class="container-flex">
@@ -32,13 +32,13 @@ if  (localStorage.getItem("login_success")){
             <a class="nav-link" id="oculto" href="#">Agregar Productos</a>
           </li>
             <li class="nav-item me-2">
-              <a class="nav-link" href="/Raices-Ecommerce/src/pages/Lista de productos/catalogo.html">Productos</a>
+              <a class="nav-link" href="/pages/Lista de productos/catalogo.html">Productos</a>
             </li>
             <li class="nav-item me-2">
-              <a class="nav-link" href="/Raices-Ecommerce/src/pages/Contactanos/contactanos.html">Contáctanos</a>
+              <a class="nav-link" href="/pages/Contactanos/contactanos.html">Contáctanos</a>
             </li>
             <li class="nav-item me-2">
-              <a class="nav-link" href="/Raices-Ecommerce/src/pages/Sobre Nosotros/nosotros.html">Nosotros</a>
+              <a class="nav-link" href="/pages/Sobre Nosotros/nosotros.html">Nosotros</a>
             </li>
             <!---->
             <li>
@@ -48,7 +48,7 @@ if  (localStorage.getItem("login_success")){
               </a>
             </li>
             <li>
-              <a class="nav-item me-2" href="/Raices-Ecommerce/src/pages/Login/login.html">
+              <a class="nav-item me-2" href="/pages/Login/login.html">
                 <button type="button" class="btn btn-light align-items-end mb-2 rounded-pill"style="
     width: 126px">Iniciar sesión</button>
               </a> </li>
@@ -61,8 +61,8 @@ if  (localStorage.getItem("login_success")){
                 </button>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/Raices-Ecommerce/src/pages/Formulario/Artesano/artesano.html">Soy artesano </a></li>
-                  <li><a class="dropdown-item" href="/Raices-Ecommerce/src/pages/Formulario/Compradores/formulario.html">Soy comprador </a></li>
+                  <li><a class="dropdown-item" href="/pages/Formulario/Artesano/artesano.html">Soy artesano </a></li>
+                  <li><a class="dropdown-item" href="/pages/Formulario/Compradores/formulario.html">Soy comprador </a></li>
                 </ul>
               </li>
           </ul>
@@ -89,8 +89,8 @@ if  (localStorage.getItem("login_success")){
         <div class="container-fluid">
           <nav class="navbar"> <!-- navbar para el link del logo -->
             <section> 
-              <a class="navbar-brand" href="/Raices-Ecommerce/src/inicio.html">
-                <img src="/Raices-Ecommerce/src/assets/Images/caco.png" alt="Raíces México" width="100"> <!---->
+              <a class="navbar-brand" href="/index.html">
+                <img src="/assets/Images/caco.png" alt="Raíces México" width="100"> <!---->
               </a> 
             </section>        
             <section class="container-flex">
@@ -106,16 +106,16 @@ if  (localStorage.getItem("login_success")){
             <ul class="navbar-nav my-2 my-lg-0" style="--bs-scroll-height: 100px;">
             <!--Permanecera oculto y solo sera visible para los artesanos-->
             <li class="nav-item me-2">
-              <a class="nav-link" href="/Raices-Ecommerce/src/pages/Lista de productos/catalogo.html">Carrito compras</a>
+              <a class="nav-link" href="/pages/Lista de productos/catalogo.html">Carrito compras</a>
             </li>
               <li class="nav-item me-2">
-                <a class="nav-link" href="/Raices-Ecommerce/src/pages/Lista de productos/catalogo.html">Productos</a>
+                <a class="nav-link" href="/pages/Lista de productos/catalogo.html">Productos</a>
               </li>
               <li class="nav-item me-2">
-                <a class="nav-link" href="/Raices-Ecommerce/src/pages/Contactanos/contactanos.html">Contáctanos</a>
+                <a class="nav-link" href="/pages/Contactanos/contactanos.html">Contáctanos</a>
               </li>
               <li class="nav-item me-2">
-                <a class="nav-link" href="/Raices-Ecommerce/src/pages/Sobre Nosotros/nosotros.html">Nosotros</a>
+                <a class="nav-link" href="/pages/Sobre Nosotros/nosotros.html">Nosotros</a>
               </li>
               <!---->
               <li>
@@ -134,8 +134,8 @@ if  (localStorage.getItem("login_success")){
                 </button>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/Raices-Ecommerce/src/pages/Formulario/Artesano/artesano.html">Soy artesano </a></li>
-                  <li><a class="dropdown-item" href="/Raices-Ecommerce/src/pages/Formulario/Compradores/formulario.html">Soy comprador </a></li>
+                  <li><a class="dropdown-item" href="/pages/Formulario/Artesano/artesano.html">Soy artesano </a></li>
+                  <li><a class="dropdown-item" href="/pages/Formulario/Compradores/formulario.html">Soy comprador </a></li>
                 </ul>
               </li>
           </ul>
@@ -161,8 +161,8 @@ if  (localStorage.getItem("login_success")){
       <div class="container-fluid">
         <nav class="navbar"> <!-- navbar para el link del logo -->
           <section> 
-            <a class="navbar-brand" href="/Raices-Ecommerce/src/inicio.html">
-              <img src="/Raices-Ecommerce/src/assets/Images/caco.png" alt="Raíces México" width="100"> <!---->
+            <a class="navbar-brand" href="/index.html">
+              <img src="/assets/Images/caco.png" alt="Raíces México" width="100"> <!---->
             </a> 
           </section>        
           <section class="container-flex">
@@ -178,16 +178,16 @@ if  (localStorage.getItem("login_success")){
           <ul class="navbar-nav my-2 my-lg-0" style="--bs-scroll-height: 100px;">
           <!--Permanecera oculto y solo sera visible para los artesanos-->
           <li class="nav-item me-2">
-            <a class="nav-link" href="/Raices-Ecommerce/src/pages/Lista de productos/FormularioProductos/formularioProduct.html">Agregar Productos</a>
+            <a class="nav-link" href="/pages/Lista de productos/FormularioProductos/formularioProduct.html">Agregar Productos</a>
           </li>
             <li class="nav-item me-2">
-              <a class="nav-link" href="/Raices-Ecommerce/src/pages/Lista de productos/catalogo.html">Productos</a>
+              <a class="nav-link" href="/pages/Lista de productos/catalogo.html">Productos</a>
             </li>
             <li class="nav-item me-2">
-              <a class="nav-link" href="/Raices-Ecommerce/src/pages/Contactanos/contactanos.html">Contáctanos</a>
+              <a class="nav-link" href="/pages/Contactanos/contactanos.html">Contáctanos</a>
             </li>
             <li class="nav-item me-2">
-              <a class="nav-link" href="/Raices-Ecommerce/src/pages/Sobre Nosotros/nosotros.html">Nosotros</a>
+              <a class="nav-link" href="/pages/Sobre Nosotros/nosotros.html">Nosotros</a>
             </li>
             <!---->
             <li>
@@ -206,8 +206,8 @@ if  (localStorage.getItem("login_success")){
               </button>
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/Raices-Ecommerce/src/pages/Formulario/Artesano/artesano.html">Soy artesano </a></li>
-                <li><a class="dropdown-item" href="/Raices-Ecommerce/src/pages/Formulario/Compradores/formulario.html">Soy comprador </a></li>
+                <li><a class="dropdown-item" href="/pages/Formulario/Artesano/artesano.html">Soy artesano </a></li>
+                <li><a class="dropdown-item" href="/pages/Formulario/Compradores/formulario.html">Soy comprador </a></li>
               </ul>
             </li>
         </ul>
@@ -234,32 +234,32 @@ function footerRM(){
               <div class="footer-links">
                   <h4>Sobre Nosotros</h4>
                   <ul role="navigation">
-                      <li><a href="/Raices-Ecommerce/src/pages/Sobre Nosotros/nosotros.html">¿Quiénes somos?</a></li>
-                      <li><a target="_blank" href="/Raices-Ecommerce/src/assets/Images/MVV.png">Misión y visión</a></li>
-                      <li><a href="/Raices-Ecommerce/src/pages/Contactanos/contactanos.html">Involúcrate</a></li>
-                      <li><a href="/Raices-Ecommerce/src/pages/Sobre Nosotros/nosotros.html#equipoChicatana">Conoce al equipo</a></li>
+                      <li><a href="/pages/Sobre Nosotros/nosotros.html">¿Quiénes somos?</a></li>
+                      <li><a target="_blank" href="/assets/Images/MVV.png">Misión y visión</a></li>
+                      <li><a href="/pages/Contactanos/contactanos.html">Involúcrate</a></li>
+                      <li><a href="/pages/Sobre Nosotros/nosotros.html#equipoChicatana">Conoce al equipo</a></li>
                   </ul>
               </div>
               <div class="footer-links">
                   <h4>Politíca de privacidad</h4>
                   <ul>
-                      <li><a target="_blank" href="/Raices-Ecommerce/src/assets/PDFs/POLÍTICA DE PRIVACIDAD.pdf">Política de privacidad</a></li>
-                      <li><a target="_blank" href="/Raices-Ecommerce/src/assets/PDFs/como funcionamos.pdf">¿Cómo funcionamos?</a></li>
-                      <li><a target="_blank" href="/Raices-Ecommerce/src/assets/PDFs/Asuntos Economicos.pdf">Asuntos económicos</a></li>
+                      <li><a target="_blank" href="/assets/PDFs/POLÍTICA DE PRIVACIDAD.pdf">Política de privacidad</a></li>
+                      <li><a target="_blank" href="/assets/PDFs/como funcionamos.pdf">¿Cómo funcionamos?</a></li>
+                      <li><a target="_blank" href="/assets/PDFs/Asuntos Economicos.pdf">Asuntos económicos</a></li>
                   </ul>
               </div>
               <div class="footer-links">
                   <h4>Servicio al cliente</h4>
                   <ul>
-                      <li><a target="_blank" href="/Raices-Ecommerce/src/assets/PDFs/Términos y condiciones (E-MX).pdf">Términos y Condiciones</a></li>
-                      <li><a href="/Raices-Ecommerce/src/pages/Contactanos/contactanos.html">¿Necesitas ayuda?</a></li>
-                      <li><a target="_blank"href="/Raices-Ecommerce/src/assets/PDFs/Métodos_pago.pdf">Métodos de pago</a></li>
+                      <li><a target="_blank" href="/assets/PDFs/Términos y condiciones (E-MX).pdf">Términos y Condiciones</a></li>
+                      <li><a href="/pages/Contactanos/contactanos.html">¿Necesitas ayuda?</a></li>
+                      <li><a target="_blank"href="/assets/PDFs/Métodos_pago.pdf">Métodos de pago</a></li>
                   </ul>
               </div>
               <div class="footer-links">
                   <h4>Aviso de copyright</h4>
                   <ul>
-                      <li><a target="_blank" href="/Raices-Ecommerce/src/assets/PDFs/AVISO DE COPYRIGHT.pdf">©2024 Todos los derechos reservados. Raíces-MX® es una marca registrada de E-MX-HANDS.</a></li>
+                      <li><a target="_blank" href="/assets/PDFs/AVISO DE COPYRIGHT.pdf">©2024 Todos los derechos reservados. Raíces-MX® es una marca registrada de E-MX-HANDS.</a></li>
                   </ul>
               </div>
               <div class="footer-links">
@@ -307,6 +307,6 @@ cerrarSesion.onclick = () => {
     });
 
     setTimeout(() => {
-        window.location.href = "/Raices-Ecommerce/src/inicio.html";
+        window.location.href = "/index.html";
     }, 1800);
 }

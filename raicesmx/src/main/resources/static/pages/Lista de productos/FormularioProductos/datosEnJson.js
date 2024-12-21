@@ -92,7 +92,7 @@ function obtenerDatosFormulario(event) {
     };
 
     // Comenzar con la llamada de la API (fetch, asynch-await, axios)
-    const url = `http://localhost:8080/api/v1/producto/new-producto`;
+    const url = `http://3.137.210.18/api/v1/producto/new-producto`;
 
     fetch(url, {
         method: 'POST',
@@ -127,7 +127,7 @@ function obtenerDatosFormulario(event) {
 /*-----------------------------------------------------------------------------------*/
 // Función para consumir una Api get Obtener los datos de productos
 /*-----------------------------------------------------------------------------------*/
-const url = "http://localhost:8080/api/v1/producto/getall";
+const url = "http://3.137.210.18/api/v1/producto/getall";
 console.log("antes del fetch");
 //Función para consumir una Api
 function obtenerProductos() {
@@ -228,7 +228,7 @@ const btnCancelar = document.getElementById('Cancelar');
 btnCancelar.style.display = "none"; 
 // Función para editar producto
 function updateData(id_producto) {
-    const url = `http://localhost:8080/api/v1/producto/get/${id_producto}`;
+    const url = `http://3.137.210.18/api/v1/producto/get/${id_producto}`;
     console.log(url, id_producto);
     fetch(url, {
         method: 'GET'
@@ -320,7 +320,7 @@ function updateData(id_producto) {
         };
           
         // Comenzar con la llamada de la API (fetch, asynch-await, axios)
-        const url = `http://localhost:8080/api/v1/producto/update/${id_producto}`;
+        const url = `http://3.137.210.18/api/v1/producto/update/${id_producto}`;
         
         fetch(url, {
             method: 'PUT',
@@ -363,7 +363,7 @@ function updateData(id_producto) {
 // Función para eliminar un producto de la lista
 /*-----------------------------------------------------------------*/
 function eliminarProducto(id_producto) {
-    const url = `http://localhost:8080/api/v1/producto/delete/${id_producto}`;
+    const url = `http://3.137.210.18/api/v1/producto/delete/${id_producto}`;
 console.log("antes del fetch");
 //Función para consumir una Api
 //----------------------

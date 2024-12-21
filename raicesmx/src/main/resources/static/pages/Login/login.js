@@ -7,7 +7,7 @@ if  (localStorage.getItem("login_success")){
     timer: 2500,
     });
     setTimeout(() => {
-      window.location.href = "/Raices-Ecommerce/src/inicio.html"; //Para llevar a la página de inicio después de sugerir que cierre sesión.
+      window.location.href = "/index.html"; //Para llevar a la página de inicio después de sugerir que cierre sesión.
   }, 2400);
 }
 
@@ -45,10 +45,10 @@ login.onclick = (e) => {
     let url; let tipoUsuarioError;
 
       if (document.getElementById('soyCliente').checked){
-        url = `http://localhost:8080/api/v1/cliente/email/${emailInput}`;
+        url = `http://3.137.210.18/api/v1/cliente/email/${emailInput}`;
         tipoUsuarioError = "cliente";
       }else if (document.getElementById('soyArtesana').checked){
-        url = `http://localhost:8080/api/v1/artesano/email/${emailInput}`;
+        url = `http://3.137.210.18/api/v1/artesano/email/${emailInput}`;
         tipoUsuarioError = "vendedor/a";
       }else{
         console.log("Error con check de artesana/cliente");
@@ -123,7 +123,7 @@ login.onclick = (e) => {
             timer: 1000,
             });
           setTimeout(() => {
-              window.location.href = "/Raices-Ecommerce/src/inicio.html"; //Para llevar al usuarix a la página de inicio después de un login existoso.
+              window.location.href = "/index.html"; //Para llevar al usuarix a la página de inicio después de un login existoso.
           }, 1000);
         }else{ //En este punto sabemos que el correo sí es correcto, pero la contraseña no y tipo de usuario no. Aun así se indica al usuario el mensaje de abajo para no dar pista de qué está mal
           Swal.fire({
