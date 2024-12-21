@@ -32,7 +32,7 @@ function filtrarProductos(productos, estado) {
 }
 
 // Obtener los productos desde el archivo JSON
-fetch('productos.json')
+fetch('/pages/Lista de productos/productos.json')
   .then(response => response.json())
   .then(data => {
     productos = data; // Guarda los productos en una variable global
