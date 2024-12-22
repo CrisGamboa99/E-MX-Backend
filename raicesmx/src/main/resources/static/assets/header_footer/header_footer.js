@@ -251,7 +251,7 @@ function footerRM(){
               <div class="footer-links">
                   <h4>Servicio al cliente</h4>
                   <ul>
-                      <li><a target="_blank" href="/assets/PDFs/Términos y condiciones (E-MX).pdf">Términos y Condiciones</a></li>
+                      <li><a target="_blank" href="/assets/PDFs/Terminos_condiciones.pdf">Términos y Condiciones</a></li>
                       <li><a href="/pages/Contactanos/contactanos.html">¿Necesitas ayuda?</a></li>
                       <li><a target="_blank"href="/assets/PDFs/Métodos_pago.pdf">Métodos de pago</a></li>
                   </ul>

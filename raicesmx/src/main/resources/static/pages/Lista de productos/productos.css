@@ -99,13 +99,24 @@ body {
 }
 
 .card{
-    border-radius: 15px;
-        background: linear-gradient(135deg, #F06292, #BA68C8);
-        color: #fff;
-        max-width: 350px;
-         margin: 0 auto;
-         display: inline;
-          max-height: 550px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #F06292, #BA68C8);
+  max-width: 300px;
+  align-items: center;
+}
+.card-img-top {
+  width: 200px;
+  border-radius: 15px;
+  height: 200px;
+}
+
+.card-body{
+          
+  color: #fff;
+  max-width: 300px;
+  display: inline;
+  max-height: 550px;
+  
 }
 
 .productos{
